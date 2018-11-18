@@ -55,7 +55,8 @@ After running the script, confirming the operation of the simulator and building
 4. Run the simulator `term2_sim`
 5. Press 'Select' in the simulator window.
 6. In the EKF terminal window `Connected!!!` will now appear.
-7. The EKF is now fully operational. 
+7. The EKF is now fully operational.
+
         * Select the dataset 1 or 2
         * Press Start
 
