@@ -3,9 +3,10 @@
 
 ---
 
-[//]: # [Image References]
+[//]: # (Image References)
 
 [image1]: ./support/SimulatorStartup.png "Simulator Startup Window"
+[image2]: ./support/EKFRunning.png " Simulator Results"
 
 
 ## Overview
@@ -18,15 +19,14 @@ Implementation of an extended Kalman filter in C++, which tracks a vehicles posi
 
 To run this code the following downloads are required:
 
-1. Make a project directory `mkdir project_EKF && cd project_EKF`
-2. Term 2 Simulator: 
+1. Make a project directory `mkdir project_udacity && cd project_udacity`
+2. Clone this repository into the project_udacity directory. `git clone https://github.com/nutmas/CarND-Extended-Kalman-Filter-Project.git`
+3. Setup environment. `cd CarND-Extended-Kalman-Filter-Project\` and launch the script to install uWebSocketIO `./install-mac.sh`. Alternatively for Ubuntu installs launch `./install-ubuntu.sh`. The environemnt will be installed with these scripts.
+4. Download Term 2 Simulator: 
       * Download from here: [Udacity Simulator](https://github.com/udacity/self-driving-car-sim/releases).
-      * Place the extracted folder into the project directory. 
+      * Place the extracted folder into the project_EKF directory. 
       * Within the folder run simulator `term2_sim`; if sucessful the following window should appear:
       ![alt text][image1]{: width="500px"}
-3. uWebSocketIO:
-      * Install from this repository: [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. 
-4. Clone this repository into the project_EKF directory. `git clone https://github.com/nutmas/CarND-Extended-Kalman-Filter-Project.git`
 
 ---
 
@@ -40,7 +40,7 @@ To run this code the following downloads are required:
 
 ## Build the code
 
-1. 
+1. From the project_udacity folder change to folder created from cloning `cd CarND-Extended-Kalman-Filter-Project`
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make` 
 
@@ -48,16 +48,26 @@ To run this code the following downloads are required:
 
 ## Usage
 
+After running the script, confirming the operation of the simulator and building the code the EKF program is ready to be run.
 
-1. From terminal window; change to build folder of project folder `cd /build/`
+
+1. From terminal window; change to build folder of project `cd ~/project_udacity/CarND-Extended-Kalman-Filter-Project/build/`
 2. Run EKF: `./ExtendedKF `
-3. Message appears ` socket` the EKF is not running
-4. Run the simulator
+3. Message appears `Listening to port 4567` the EKF is now running and waiting for connection from the simulator
+4. Run the simulator `term2_sim`
+5. Press 'Select' in the simulator window.
+6. In the EKF terminal window `Connected!!!` will now appear.
+7. The EKF is now fully operational. 
+        * Select the dataset 1 or 2
+        * Press Start
 
-From Simulator window select data set 1 or 2. The Animation will start and the vehicle can be seen moving around the screen.
-* Red triangles are Lidar measurements
-* Blue triangles are Radar measurements
-* Green triangles are EKF predictions
+The Animation will start and the vehicle can be seen moving around the screen.
+
+![alt text][image2]{: width="500px"}
+
+* Red markers are Lidar measurements
+* Blue markers are Radar measurements
+* Green markers are EKF predictions
 
 ---
 
