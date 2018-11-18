@@ -11,17 +11,13 @@ Tools::~Tools() {}
 
 VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
                               const vector<VectorXd> &ground_truth) {
-  /**
-  TODO:
-    * Calculate the RMSE here.
-  */
 
-  // RMSE to calculate perfromance of Kalman filter against ground truth
+  // RMSE to calculate performance of Kalman filter against ground truth
   // create and intitalise rmse vector
   VectorXd rmse(4);
   rmse << 0,0,0,0;
 
-  // check: input estimation is not zer
+  // check: input estimation is not zero
   // check: estimation vector and ground truth vector are equal in size
   if(estimations.size() != ground_truth.size() || estimations.size() == 0) {
     cout << "Invalid estimation or ground truth data" << endl;
@@ -30,9 +26,6 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
   // accumulate squared residuals
   for(unsigned int i=0; i < estimations.size(); ++i) {
-
-
-    //std::cout << "estimations value: " << estimations[i] << " \nground value: " << ground_truth[i] << std::endl;
 
     // temporary vector to get difference between est and gt
     VectorXd residual = estimations[i] - ground_truth[i];
@@ -49,22 +42,18 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   // calculate sqaure root
   rmse = rmse.array().sqrt();
 
-  std::cout << "RMSE size:" << rmse.size() << std::endl;
-
-  std::cout << " RMSE: " << rmse(0) << " " << rmse(1) << std::endl;
-
   // return result
   return rmse;
 
 }
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
-  /**
-  TODO:
-    * Calculate a Jacobian here.
-  */
+
+  // Calculate a Jacobian
 
   // initialise 3 row x 4 column matrix
+
+  // measurement matrix for the radar - 3 measurements rho, phi, rhodot
   MatrixXd Hj(3,4);
   Hj << 0,0,0,0,
         0,0,0,0,

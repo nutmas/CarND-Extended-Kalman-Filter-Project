@@ -1,7 +1,8 @@
+#include <iostream>
+#include "Eigen/Dense"
+
 #include "FusionEKF.h"
 #include "tools.h"
-#include "Eigen/Dense"
-#include <iostream>
 
 using namespace std;
 using Eigen::MatrixXd;
@@ -20,7 +21,6 @@ FusionEKF::FusionEKF() {
   R_laser_    = MatrixXd(2, 2);
   R_radar_    = MatrixXd(3, 3);
   H_laser_    = MatrixXd(2, 4);
-  //Hj_ = MatrixXd(3, 4);
 
   //measurement covariance matrix - laser
   R_laser_ << 0.0225, 0,
@@ -31,11 +31,7 @@ FusionEKF::FusionEKF() {
         0, 0.0009, 0,
         0, 0, 0.09;
 
-  /**
-  TODO:
-    * Finish initializing the FusionEKF.
-    * Set the process and measurement noises
-  */
+  //Finish initialise the FusionEKF.
 
   // measurement matrix for laser - 2 measurements x,y
   // H matrix convert from 4D to 2D space
@@ -56,14 +52,6 @@ FusionEKF::FusionEKF() {
         0, 0, 1, 0,
         0, 0, 0, 1;
 
-
-
-
-
-  // measurement matrix for the rader - 3 measurements rho, phi, rhodot
-  //Hj_ <<
-
-
 }
 
 /**
@@ -78,14 +66,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    *  Initialization
    ****************************************************************************/
   if (!is_initialized_) {
-    /**
-    TODO:
-      * Initialize the state ekf_.x_ with the first measurement.
-      * Create the covariance matrix.
-      * Remember: you'll need to convert radar from polar to cartesian coordinates.
-    */
-    // first measurement
-    cout << "EKF: " << endl;
+
+    // message to show EKF initialised
+    cout << "EKF Initialised." << endl;
+    // Initialize the state ekf_.x_ with the first measurement.
     ekf_.x_ = VectorXd(4);
     ekf_.x_ << 1, 1, 1, 1;
 
@@ -147,15 +131,13 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   float dt_3 = dt_2 * dt;
   float dt_4 = dt_3 * dt;
 
-  //set the acceleration noise components
+  // set the acceleration noise components
   double noise_ax = 9.0;
   double noise_ay = 9.0;
 
   //Modify the F matrix so that the time is integrated
   ekf_.F_(0, 2) = dt;
   ekf_.F_(1, 3) = dt;
-
-
 
   //set the process covariance matrix Q
   ekf_.Q_ = MatrixXd(4, 4);
@@ -181,20 +163,16 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // Radar updates
     ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
     ekf_.R_ = R_radar_;
-    std::cout << "its in Radar " << std::endl;
-
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
 
   } else {
     // Laser updates
     ekf_.H_ = H_laser_;
     ekf_.R_ = R_laser_;
-    std::cout << "its in laser " << std::endl;
-
     ekf_.Update(measurement_pack.raw_measurements_);
   }
 
   // print the output
-  cout << "x_ = " << ekf_.x_ << endl;
-  cout << "P_ = " << ekf_.P_ << endl;
+  //cout << "x_ = " << ekf_.x_ << endl;
+  //cout << "P_ = " << ekf_.P_ << endl;
 }
